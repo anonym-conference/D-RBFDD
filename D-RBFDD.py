@@ -8,7 +8,7 @@ class D-RBFDD(nn.Module):
         self.H = h
         self.pre_rbfdd_input_dim = pre_rbfdd_input_dim
         # Create the LeNet-5 network
-        self.lenet = LeNet()
+        self.lenet = LeNet5()
         # create the RBFDD network
         self.rbfdd = RBFDD(h, pre_rbfdd_input_dim)
     def forward(self, x):
