@@ -30,7 +30,7 @@ class RBFDD(nn.Module):
         return p
 
 
-    # This function clipts ridiculously large/small values
+    # This function clipts ridiculously large/small values for the power of the exponential.
     def clip_power(self, power):
         minimum = torch.tensor(-100.).to(device)
         maximum = torch.tensor(40.).to(device)
@@ -41,10 +41,10 @@ class RBFDD(nn.Module):
 
     def forward(self, x):
         y = torch.tensor([])
-        [p, div] = self.Gaussian(x)
-        if div is True:
-            return y, div
-
+        # Compute the outputs of the Gaussians
+        p = self.Gaussian(x)
+        # Compute Z
         z = self.fc(p)
+        # Compute utimate output of RBFDD
         y = 1.7159 * torch.tanh(float(2 / 3) * z)
-        return y, div
+        return y
